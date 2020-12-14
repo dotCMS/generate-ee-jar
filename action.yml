@@ -1,0 +1,31 @@
+# action.yml
+name: 'Generate/Deploy EE'
+description: 'Generates and deploys DotCMS - Enterprise jar'
+inputs:
+  repo-username:
+    description: 'Repository username'
+    required: true
+  repo-password:
+    description: 'Repository password'
+    required: true
+  build-id:
+    description: 'DotCMS EE build id (commit/tag/branch)'
+    required: true
+    default: master
+  core-build-id:
+    description: 'DotCMS build id (commit/tag/branch)'
+    required: true
+    default: master
+  rsa-key:
+    description: 'Github repo SSH key'
+    required: true
+  
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.repo-username }}
+    - ${{ inputs.repo-password }}
+    - ${{ inputs.build-id }}
+    - ${{ inputs.core-build-id }}
+    - ${{ inputs.rsa-key }}
